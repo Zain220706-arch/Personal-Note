@@ -17,5 +17,5 @@ I'm learning across three areas:
 
 ## Contact
 
-- GitHub: [github.com/Zain220706](https://github.com/Zain220706)
+- GitHub: [github.com/Zain220706](https://github.com/Zain220706-arch)
 - LinkedIn: [linkedin.com/in/mikel-muhammad-zain](https://linkedin.com/in/mikel-muhammad-zain)
