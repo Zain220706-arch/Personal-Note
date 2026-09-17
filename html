@@ -1,0 +1,514 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Mikel Muhammad Zain</title>
+<style>
+  :root{
+    --paper:#f7f6f1;
+    --paper-2:#efede4;
+    --ink:#1c1c1a;
+    --ink-soft:#54524a;
+    --ink-dim:#8f8c80;
+    --rule:#d9d5c8;
+    --blue:#3350c8;   /* AI */
+    --teal:#1f8f74;   /* Data */
+    --crimson:#b23a3a;/* Cybersecurity */
+    --serif:'Source Serif 4','Iowan Old Style','Georgia',serif;
+    --mono:'IBM Plex Mono','JetBrains Mono','Courier New',monospace;
+  }
+  *{box-sizing:border-box;margin:0;padding:0;}
+  html{scroll-behavior:smooth;}
+  body{
+    background:var(--paper);
+    color:var(--ink);
+    font-family:var(--serif);
+    -webkit-font-smoothing:antialiased;
+  }
+  a{color:inherit;}
+  ::selection{background:rgba(51,80,200,0.18);}
+
+  .page{
+    max-width:760px;
+    margin:0 auto;
+    padding:0 28px 100px;
+  }
+
+  /* ---------------- top meta bar ---------------- */
+  .metabar{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    padding:22px 0;
+    font-family:var(--mono);
+    font-size:11.5px;
+    color:var(--ink-dim);
+    letter-spacing:0.01em;
+    border-bottom:1px solid var(--rule);
+  }
+  .metabar nav{display:flex;gap:20px;}
+  .metabar nav a{color:var(--ink-dim);transition:color .15s ease;}
+  .metabar nav a:hover{color:var(--ink);}
+
+  /* ---------------- header / title block ---------------- */
+  header.titleblock{
+    padding:64px 0 40px;
+    border-bottom:1px solid var(--rule);
+  }
+  .idchip{
+    width:52px;height:52px;
+    border:1.5px solid var(--ink);
+    display:flex;align-items:center;justify-content:center;
+    font-family:var(--serif);
+    font-weight:600;
+    font-size:19px;
+    margin-bottom:28px;
+    position:relative;
+  }
+  .idchip::after{
+    content:"";
+    position:absolute;
+    left:-1.5px;right:-1.5px;bottom:-6px;
+    height:3px;
+    background:linear-gradient(90deg,var(--blue),var(--teal),var(--crimson));
+  }
+  h1.title{
+    font-size:clamp(32px,5.4vw,50px);
+    font-weight:600;
+    line-height:1.12;
+    letter-spacing:-0.01em;
+  }
+  .subtitle{
+    margin-top:12px;
+    font-size:19px;
+    font-style:italic;
+    color:var(--ink-soft);
+  }
+  .abstract{
+    margin-top:30px;
+    font-size:16px;
+    line-height:1.8;
+    color:var(--ink-soft);
+    max-width:66ch;
+  }
+  .abstract .lbl{
+    font-family:var(--mono);
+    font-size:11px;
+    color:var(--ink-dim);
+    display:block;
+    margin-bottom:8px;
+  }
+  .keywords{
+    margin-top:22px;
+    font-family:var(--mono);
+    font-size:12px;
+    color:var(--ink-dim);
+  }
+  .keywords span.kw{
+    color:var(--ink-soft);
+  }
+
+  /* ---------------- figure ---------------- */
+  .figure{
+    margin:50px 0;
+    border:1px solid var(--rule);
+    background:var(--paper-2);
+    padding:20px 20px 16px;
+  }
+  .figure canvas{
+    width:100%;
+    height:220px;
+    display:block;
+  }
+  .figure figcaption{
+    margin-top:14px;
+    font-family:var(--mono);
+    font-size:11.5px;
+    color:var(--ink-dim);
+    line-height:1.6;
+  }
+  .figure figcaption b{color:var(--ink-soft);font-weight:600;}
+  .legend{
+    display:flex;gap:18px;margin-top:10px;
+    font-family:var(--mono);font-size:11px;color:var(--ink-soft);
+  }
+  .legend span{display:flex;align-items:center;gap:6px;}
+  .swatch{width:9px;height:9px;border-radius:50%;display:inline-block;}
+
+  /* ---------------- sections ---------------- */
+  section{
+    padding:52px 0;
+    border-bottom:1px solid var(--rule);
+  }
+  section:last-of-type{border-bottom:none;}
+  .sec-title{
+    display:flex;
+    align-items:baseline;
+    gap:12px;
+    margin-bottom:26px;
+  }
+  .sec-title .num{
+    font-family:var(--mono);
+    font-size:14px;
+    color:var(--ink-dim);
+  }
+  .sec-title h2{
+    font-size:23px;
+    font-weight:600;
+    letter-spacing:-0.005em;
+  }
+  .prose{
+    font-size:16px;
+    line-height:1.85;
+    color:var(--ink-soft);
+    max-width:66ch;
+  }
+  .prose p + p{margin-top:16px;}
+
+  /* ---------------- focus areas ---------------- */
+  .areas{
+    display:flex;
+    flex-direction:column;
+    gap:22px;
+  }
+  .area{
+    display:grid;
+    grid-template-columns:22px 1fr;
+    gap:16px;
+  }
+  .area .dot{
+    width:11px;height:11px;
+    border-radius:50%;
+    margin-top:7px;
+  }
+  .area h3{
+    font-size:16.5px;
+    font-weight:600;
+    margin-bottom:5px;
+  }
+  .area p{
+    font-size:14.5px;
+    line-height:1.75;
+    color:var(--ink-soft);
+    max-width:60ch;
+  }
+
+  /* ---------------- works as citations ---------------- */
+  .works{
+    display:flex;
+    flex-direction:column;
+    gap:24px;
+  }
+  .work{
+    display:grid;
+    grid-template-columns:38px 1fr;
+    gap:16px;
+  }
+  .work .tag{
+    font-family:var(--mono);
+    font-size:13px;
+    color:var(--ink-dim);
+    padding-top:2px;
+  }
+  .work h3{
+    font-size:16.5px;
+    font-weight:600;
+    margin-bottom:6px;
+  }
+  .work h3 .field{
+    font-family:var(--mono);
+    font-size:10.5px;
+    font-weight:400;
+    color:#fff;
+    padding:2px 7px;
+    border-radius:2px;
+    margin-right:9px;
+    position:relative;
+    top:-2px;
+  }
+  .work p{
+    font-size:14.5px;
+    line-height:1.75;
+    color:var(--ink-soft);
+    max-width:62ch;
+  }
+
+  /* ---------------- references / contact ---------------- */
+  .refs{
+    display:flex;
+    flex-direction:column;
+    gap:14px;
+    font-size:14.5px;
+  }
+  .ref{
+    display:grid;
+    grid-template-columns:44px 1fr;
+    gap:14px;
+    padding:14px 0;
+    border-bottom:1px dashed var(--rule);
+  }
+  .ref:last-child{border-bottom:none;}
+  .ref .tag{font-family:var(--mono);color:var(--ink-dim);font-size:13px;}
+  .ref .rmeta{color:var(--ink-soft);}
+  .ref .rmeta b{color:var(--ink);font-weight:600;}
+  .ref a{
+    font-family:var(--mono);
+    font-size:13px;
+    color:var(--blue);
+    border-bottom:1px solid rgba(51,80,200,0.3);
+  }
+  .ref a:hover{border-bottom-color:var(--blue);}
+
+  footer{
+    padding:40px 0 0;
+    font-family:var(--mono);
+    font-size:11px;
+    color:var(--ink-dim);
+    display:flex;
+    justify-content:space-between;
+  }
+
+  @media (max-width:560px){
+    .page{padding:0 20px 70px;}
+    header.titleblock{padding:48px 0 32px;}
+    .metabar nav{gap:12px;}
+    .work, .area{grid-template-columns:1fr;gap:6px;}
+  }
+</style>
+</head>
+<body>
+
+<div class="page">
+
+  <div class="metabar">
+    <span>M. ZAIN — PERSONAL NOTE</span>
+    <nav>
+      <a href="#about">about</a>
+      <a href="#focus">focus</a>
+      <a href="#works">works</a>
+      <a href="#contact">contact</a>
+    </nav>
+  </div>
+
+  <header class="titleblock">
+    <div class="idchip">MZ</div>
+    <h1 class="title">Mikel Muhammad Zain</h1>
+    <div class="subtitle">AI, Data &amp; Cybersecurity Enthusiast</div>
+    <div class="abstract">
+      <span class="lbl">abstract</span>
+      Interested in the space where machine learning meets real data and the systems that need protecting while they run. This page collects what I'm exploring — models, datasets, and the security questions that come with putting both into production.
+    </div>
+    <div class="keywords">keywords: <span class="kw">machine learning</span>, <span class="kw">data analysis</span>, <span class="kw">penetration testing</span>, <span class="kw">bug bounty</span>, <span class="kw">applied statistics</span></div>
+  </header>
+
+  <figure class="figure">
+    <canvas id="clusterChart"></canvas>
+    <div class="legend">
+      <span><i class="swatch" style="background:var(--blue)"></i>AI</span>
+      <span><i class="swatch" style="background:var(--teal)"></i>Data</span>
+      <span><i class="swatch" style="background:var(--crimson)"></i>Cybersecurity</span>
+    </div>
+    <figcaption><b>Figure 1.</b> Three overlapping clusters of interest — each point drifts within its region; lines mark where the fields meet in practice.</figcaption>
+  </figure>
+
+  <section id="about">
+    <div class="sec-title"><span class="num">1</span><h2>About</h2></div>
+    <div class="prose">
+      <p>I spend most of my time somewhere between building models, cleaning data, and asking whether the system holding it all together is actually safe. None of the three feel separate to me — a model is only as good as the data behind it, and neither matters if the pipeline can be walked into.</p>
+      <p>Right now that means working through machine learning fundamentals, practicing data analysis on real (and messy) datasets, and picking up the security habits that make the rest of it trustworthy.</p>
+    </div>
+  </section>
+
+  <section id="focus">
+    <div class="sec-title"><span class="num">2</span><h2>Focus areas</h2></div>
+    <div class="areas">
+      <div class="area">
+        <span class="dot" style="background:var(--blue)"></span>
+        <div>
+          <h3>Artificial Intelligence</h3>
+          <p>Machine learning fundamentals, model training and evaluation, and understanding failure modes as much as accuracy scores.</p>
+        </div>
+      </div>
+      <div class="area">
+        <span class="dot" style="background:var(--teal)"></span>
+        <div>
+          <h3>Data</h3>
+          <p>Cleaning, exploring, and visualizing datasets — the unglamorous work that decides whether anything built on top of it can be trusted.</p>
+        </div>
+      </div>
+      <div class="area">
+        <span class="dot" style="background:var(--crimson)"></span>
+        <div>
+          <h3>Cybersecurity</h3>
+          <p>Thinking about how systems get attacked, and applying that lens to the models and pipelines built in the other two areas — mainly through penetration testing and bug bounty hunting.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="works">
+    <div class="sec-title"><span class="num">3</span><h2>Selected works</h2></div>
+    <div class="works">
+      <div class="work">
+        <span class="tag">[1]</span>
+        <div>
+          <h3><span class="field" style="background:var(--blue)">AI</span>Anomaly Detection in Network Traffic</h3>
+          <p>A small machine learning model trained to flag unusual traffic patterns, built as a way to connect data work directly to a security use case.</p>
+        </div>
+      </div>
+      <div class="work">
+        <span class="tag">[2]</span>
+        <div>
+          <h3><span class="field" style="background:var(--teal)">DATA</span>Exploratory Data Analysis Toolkit</h3>
+          <p>A set of reusable notebooks for cleaning, profiling, and visualizing new datasets before any modeling work begins.</p>
+        </div>
+      </div>
+      <div class="work">
+        <span class="tag">[3]</span>
+        <div>
+          <h3><span class="field" style="background:var(--crimson)">SEC</span>Secure Model Deployment Notes</h3>
+          <p>Working notes on deploying ML models safely — access control, input validation, and what can go wrong once a model is public-facing.</p>
+        </div>
+      </div>
+      <div class="work">
+        <span class="tag">[4]</span>
+        <div>
+          <h3><span class="field" style="background:var(--crimson)">SEC</span>Bug Bounty &amp; Pentest Reports</h3>
+          <p>Findings from practicing on bug bounty programs and CTF-style pentest labs — reconnaissance, vulnerability discovery, and writing up reports clearly enough for a developer to act on.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="contact">
+    <div class="sec-title"><span class="num">4</span><h2>Get in touch</h2></div>
+    <div class="prose" style="margin-bottom:24px;">Open to conversations about AI, data, or security — reach me through any of the following.</div>
+    <div class="refs">
+      <div class="ref">
+        <span class="tag">[R1]</span>
+        <div class="rmeta"><b>GitHub.</b> <a href="https://github.com/Zain220706-arch" target="_blank" rel="noopener">github.com/Zain220706-arch</a></div>
+      </div>
+      <div class="ref">
+        <span class="tag">[R2]</span>
+        <div class="rmeta"><b>LinkedIn.</b> <a href="https://linkedin.com/in/mikel-muhammad-zain" target="_blank" rel="noopener">linkedin.com/in/mikel-muhammad-zain</a></div>
+      </div>
+      <div class="ref">
+        <span class="tag">[R3]</span>
+        <div class="rmeta"><b>Email.</b> <a href="mailto:mikelmz526@gmail.com">mikelmz526@gmail.com</a></div>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <span>Mikel Muhammad Zain</span>
+    <span id="year"></span>
+  </footer>
+
+</div>
+
+<script>
+document.getElementById('year').textContent = new Date().getFullYear();
+
+/* Figure 1: three drifting, loosely-connected clusters (AI / Data / Security) */
+(function(){
+  const canvas = document.getElementById('clusterChart');
+  const ctx = canvas.getContext('2d');
+  const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  let w,h,dpr;
+  let clusters = [];
+  let t = 0;
+
+  const colors = ['#3350c8','#1f8f74','#b23a3a'];
+
+  function resize(){
+    dpr = Math.min(window.devicePixelRatio || 1, 2);
+    const rect = canvas.getBoundingClientRect();
+    w = canvas.width = rect.width * dpr;
+    h = canvas.height = 220 * dpr;
+    canvas.style.height = '220px';
+
+    const centers = [
+      {x:w*0.28, y:h*0.55},
+      {x:w*0.72, y:h*0.32},
+      {x:w*0.58, y:h*0.78}
+    ];
+    clusters = centers.map((c,ci)=>{
+      const pts = [];
+      const n = 16;
+      for(let i=0;i<n;i++){
+        pts.push({
+          ang: Math.random()*Math.PI*2,
+          rad: Math.random()*46*dpr + 6*dpr,
+          speed: 0.15 + Math.random()*0.25,
+          phase: Math.random()*Math.PI*2,
+          size: (Math.random()*1.6+1)*dpr
+        });
+      }
+      return {cx:c.x, cy:c.y, pts, color:colors[ci]};
+    });
+  }
+
+  function draw(){
+    ctx.clearRect(0,0,w,h);
+
+    // faint lines between cluster centers
+    ctx.strokeStyle = 'rgba(28,28,26,0.10)';
+    ctx.lineWidth = 1;
+    for(let i=0;i<clusters.length;i++){
+      for(let j=i+1;j<clusters.length;j++){
+        ctx.beginPath();
+        ctx.moveTo(clusters[i].cx, clusters[i].cy);
+        ctx.lineTo(clusters[j].cx, clusters[j].cy);
+        ctx.stroke();
+      }
+    }
+
+    clusters.forEach(cl=>{
+      cl.pts.forEach(p=>{
+        const wob = Math.sin(t*p.speed + p.phase) * 6 * dpr;
+        const x = cl.cx + Math.cos(p.ang) * (p.rad + wob);
+        const y = cl.cy + Math.sin(p.ang) * (p.rad + wob) * 0.72;
+        ctx.fillStyle = cl.color;
+        ctx.globalAlpha = 0.68;
+        ctx.beginPath();
+        ctx.arc(x,y,p.size,0,Math.PI*2);
+        ctx.fill();
+        ctx.globalAlpha = 1;
+      });
+      // centroid marker
+      ctx.fillStyle = cl.color;
+      ctx.globalAlpha = 0.9;
+      ctx.beginPath();
+      ctx.arc(cl.cx, cl.cy, 3*dpr, 0, Math.PI*2);
+      ctx.fill();
+      ctx.globalAlpha = 1;
+    });
+  }
+
+  function step(){
+    draw();
+    t += 0.02;
+    if(!reduceMotion) requestAnimationFrame(step);
+  }
+
+  resize();
+  step();
+  window.addEventListener('resize', resize);
+})();
+
+/* smooth active-nav highlight (subtle, optional) */
+const navlinks = document.querySelectorAll('.metabar nav a');
+const secs = Array.from(navlinks).map(l=>document.querySelector(l.getAttribute('href')));
+function onScroll(){
+  let idx = -1;
+  const y = window.scrollY + 120;
+  secs.forEach((s,i)=>{ if(s && s.offsetTop <= y) idx = i; });
+  navlinks.forEach((l,i)=> l.style.color = i===idx ? 'var(--ink)' : '');
+}
+window.addEventListener('scroll', onScroll, {passive:true});
+onScroll();
+</script>
+
+</body>
+</html>
